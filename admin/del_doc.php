@@ -95,8 +95,8 @@ height: 800px;
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
+                <a class="nav-link" href="adminmain.php">Home
+                       
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -104,7 +104,9 @@ height: 800px;
                         aria-expanded="false">Doctor</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="add_doc.php">Add Doctor</a>
-                        <a class="dropdown-item" href="del_doc.php">Delete Doctor</a>
+                        <a class="dropdown-item" href="del_doc.php">Delete Doctor
+                        <span class="sr-only">(current)</span>
+                        </a>
                         <a class="dropdown-item" href="s_doc.php">Show Doctor</a>
                         <a class="dropdown-item" href="s_doc_shed.php">Show Doctor's Shedule</a>
                     </div>
@@ -113,7 +115,7 @@ height: 800px;
                     <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">Clinic</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="addclinic.php">Add Clinic</a>
+                    <a class="dropdown-item" href="add_cli.php">Add Clinic</a>
                         <a class="dropdown-item" href="deleteclinic.php">Delete CLinic</a>
                         <a class="dropdown-item" href="adddoctorclinic.php">Assign Doctor to Clinic</a>
                         <a class="dropdown-item" href="addmanagerclinic.php">Assign Manager to Clinic</a>

@@ -10,29 +10,59 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 <title>Admin</title>
 </head>
 <?php session_start(); ?>
-<style>
-table, th, td {
-  border: 2px solid black;
-  border-collapse: collapse;
+ <style>
+.contact-form{
+    background: #fff;
+    margin-top: 0%;
+    margin-bottom: 5%;
+    width: 100%;
 }
-th, td {
-  padding: 15px;
-  text-align: left;
+.contact-form .form-control{
+    border-radius:1rem;
 }
-table tr:nth-child(even) {
-  background-color: #eee;
+.contact-image{
+    text-align: center;
 }
-table tr:nth-child(odd) {
- background-color: #fff;
+.contact-image img{
+    border-radius: 6rem;
+    width: 11%;
+    margin-top: -3%;
+    transform: rotate(29deg);
 }
-div{
-    background-repeat: no-repeat;
-  background-attachment: fixed;
-  
+.contact-form form{
+    padding-top: 10%;
+}
+.contact-form form .row{
+    margin-bottom: -7%;
+}
+.contact-form h3{
+    margin-bottom: 0%;
+    margin-top: -10%;
+    text-align: center;
+    color: #0062cc;
+}
+.contact-form .btnContact {
+    width: 50%;
+    border: none;
+    border-radius: 1rem;
+    padding: 1.5%;
+    background: #dc3545;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+.btnContactSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    color: #fff;
+    background-color: #0062cc;
+    border: none;
+    cursor: pointer;
 }
 body{
     
@@ -43,7 +73,6 @@ background-repeat: no-repeat;
 background-attachment: fixed;
 height: 800px;
 }
-
 .overlay,.sideMenu{position:fixed;bottom:0}
 .overlay{top:0;left:-100%;right:100%;margin:auto;background-color:rgba(0,0,0,.5);z-index:998;transition:all ease 0.2s}
 .overlay.open{left:0;right:0}
@@ -53,11 +82,9 @@ height: 800px;
 .sideMenu.open{left:0;display:block;overflow-y:auto}
 .sideMenu ul{margin:0;padding:0 15px}</style>
 <body>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sidebarNavigation" data-sidebarClass="navbar-dark bg-dark" >
         <div class="container-fluid">
         <a class="navbar-brand" href="#">Admin</a>
@@ -65,12 +92,11 @@ height: 800px;
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                 <li class="nav-item active">
                 <a class="nav-link" href="adminmain.php">Home
-                        
+                       
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -78,10 +104,10 @@ height: 800px;
                         aria-expanded="false">Doctor</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="add_doc.php">Add Doctor</a>
-                        <a class="dropdown-item" href="del_doc.php">Delete Doctor</a>
-                        <a class="dropdown-item" href="s_doc.php">Show Doctor
+                        <a class="dropdown-item" href="del_doc.php">Delete Doctor
                         <span class="sr-only">(current)</span>
                         </a>
+                        <a class="dropdown-item" href="s_doc.php">Show Doctor</a>
                         <a class="dropdown-item" href="s_doc_shed.php">Show Doctor's Shedule</a>
                     </div>
                 </li>
@@ -108,17 +134,28 @@ height: 800px;
                     </div>
                 </li>
             </ul>
-            <!-- <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
-            
         </div>
     </div>
     </nav>
-
-    
-    
+    <img src="admin.png" alt="" width="700px">
+    <div style="float:right" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+    <div class="container contact-form"style="padding:0" >
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <h3>Delete Clinic</h3>
+               <div class="row" style="padding:0px">
+                    <div class="col-md-6"style="padding:0px" 
+                        <div class= "form-group">
+                            Enter Clinic ID: <br><input class="form-control" type="number" name="cid" required><br><br>
+                        <center>
+                        <div class="form-group-">
+                            <input type="submit" name="Submit1" class="btnContact" />
+                        </div>
+                    </div>
+                    </center>
+                </div>
+            </form>
+</div>
+    </div>
     <script>
     window.onload=function(){if(window.jQuery){$(document).ready(function(){$(".sidebarNavigation .navbar-collapse").hide().clone().appendTo("body").removeAttr("class").addClass("sideMenu").show();$("body").append("<div class='overlay'></div>");
         $(".navbar-toggle, .navbar-toggler").on("click",function(){$(".sideMenu").addClass($(".sidebarNavigation").attr("data-sidebarClass"));$(".sideMenu, .overlay").toggleClass("open");$(".overlay").on("click",function(){$(this).removeClass("open");
@@ -126,52 +163,28 @@ height: 800px;
             $("body").on("click",".sideMenu.open .nav-item",function(){if(!$(this).hasClass("dropdown")){$(".sideMenu, .overlay").toggleClass("open")}});$(window).resize(function(){if($(".navbar-toggler").is(":hidden")){$(".sideMenu, .overlay").hide()}
     else{$(".sideMenu, .overlay").show()}})})}else{console.log("sidebarNavigation Requires jQuery")}}
     </script>
-    </ul>
-</h2>
-<div style="background-image: url('admin.png'); height:100%;"><hi/div>
-<!-- <img src="admin.png" alt="" width="700px"> -->
-<center><h1>SHOW DOCTOR</h1><hr>
-<?php
+    <?php
 
-$con = mysqli_connect('localhost','root','','wt_database');
-if (!$con)
+include 'dbconfig.php';
+if(isset($_POST['Submit1']))
 {
-    die('Could not connect: ' . mysqli_error($con));
+	$cid=$_POST['cid'];
+	$sql = "DELETE FROM clinic WHERE CID= $cid ";
+
+	if (mysqli_query($conn, $sql))
+		{
+		echo "Record deleted successfully.";
+		
+		}
+	else
+		{
+			echo "Error deleting record: " . mysqli_error($conn);
+		}
+
 }
-$sql="SELECT * FROM doctor order by DID ASC";
-$result = mysqli_query($con,$sql);
-echo "<br><h1>TOTAL DOCTORS IN DATABASE=<b>".mysqli_num_rows($result)."</b></h1><br>";
-echo "<table class='table table-striped table-condense'>
-<tr>
-<th>DID</th>
-<th>Doctor Name</th>
-<th>DOB</th>
-<th>Experience</th>
-<th>Specialization</th>
-<th>Address</th>
-<th>Contact</th>
-<th>Region</th>
-</tr>";
-while($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
-	echo "<td>" . $row['did'] . "</td>";
-    echo "<td>Dr. " . $row['name'] . "</td>";
-    echo "<td>" . $row['dob'] . "</td>";
-    echo "<td>" . $row['experience'] . "</td>";
-    echo "<td>" . $row['specialization'] . "</td>";
-	echo "<td>" . $row['address'] . "</td>";
-	echo "<td>" . $row['contact'] . "</td>";
-	echo "<td>" . $row['region'] . "</td>";
-    echo "</tr>";
-}
-echo "</table>";
-mysqli_close($con);
 if(isset($_POST['logout'])){
 		session_unset();
 		session_destroy();
-		header( "Refresh:1; url=alogin.php");
+		
 	}
-?>
-</div>
-</body>
-</html>
+?>			
