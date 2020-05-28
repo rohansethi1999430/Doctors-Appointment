@@ -63,7 +63,7 @@ function getDay(val) {
 
 </script>
 
-<body style="background-image:linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url(https://images.unsplash.com/photo-1536064479547-7ee40b74b807?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)">
+<body style="color:white;background-image:linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url(https://images.unsplash.com/photo-1536064479547-7ee40b74b807?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)">
 <div class="container" >
 <div class="row" style="margin-top:20px">
     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
@@ -73,7 +73,7 @@ function getDay(val) {
 		<input type="text" placeholder="Enter Full name of patient" name="fname" required class = "form-control input-lg"><br>
 		
 		<label><b>Time:</b></label><br>
-		<input type="radio" name="time" value="3 PM-4 PM"> 3 PM-4 PM
+		<input type="radio" name="time" value="3 PM-4 PM" > 3 PM-4 PM
 		<input type="radio" name="time" value="4 PM-5 PM"> 4 PM-5 PM
 		<input type="radio" name="time" value="5 PM-6 PM"> 5 PM-6 PM<br>
 	

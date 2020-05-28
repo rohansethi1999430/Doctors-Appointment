@@ -11,18 +11,23 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 		<link rel="stylesheet" href="css/style.css">
 		<link href="css/animate.css" rel="stylesheet">
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     </head>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,800');
 @import url('https://fonts.googleapis.com/css?family=Chela+One');
 
-
+.body{
+	backgroung-color:white;
+}
 .header{
-background-image: url('https://images.unsplash.com/photo-1536064479547-7ee40b74b807?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
+
 background-image:height 100px;
 background-repeat: no-repeat;
 background-attachment: fixed;
-height: 800px;
+
 transition: 0.5s ease-in-out;
 }
 .logo{
@@ -169,25 +174,257 @@ font-size: 15px;
 footer{
 	margin-top:800px;
 }
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
+/* written by riliwan balogun http://www.facebook.com/riliwan.rabo*/
+.board{
+    width: 75%;
+margin: 60px auto;
+height: 500px;
+background: #fff;
+/*box-shadow: 10px 10px #ccc,-10px 20px #ddd;*/
+}
+.board .nav-tabs {
+    position: relative;
+    /* border-bottom: 0; */
+    /* width: 80%; */
+    margin: 40px auto;
+    margin-bottom: 0;
+    box-sizing: border-box;
+
+}
+
+.board > div.board-inner{
+    background: #fafafa url(http://subtlepatterns.com/patterns/geometry2.png);
+    background-size: 30%;
+}
+
+p.narrow{
+    width: 60%;
+    margin: 10px auto;
+}
+
+.liner{
+    height: 2px;
+    background: #ddd;
+    position: absolute;
+    width: 80%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 1;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    /* background-color: #ffffff; */
+    border: 0;
+    border-bottom-color: transparent;
+}
+
+span.round-tabs{
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    display: inline-block;
+    border-radius: 100px;
+    background: white;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    font-size: 25px;
+}
+
+span.round-tabs.one{
+    color: rgb(34, 194, 34);border: 2px solid rgb(34, 194, 34);
+}
+
+li.active span.round-tabs.one{
+    background: #fff !important;
+    border: 2px solid #ddd;
+    color: rgb(34, 194, 34);
+}
+
+span.round-tabs.two{
+    color: #febe29;border: 2px solid #febe29;
+}
+
+li.active span.round-tabs.two{
+    background: #fff !important;
+    border: 2px solid #ddd;
+    color: #febe29;
+}
+
+span.round-tabs.three{
+    color: #3e5e9a;border: 2px solid #3e5e9a;
+}
+
+li.active span.round-tabs.three{
+    background: #fff !important;
+    border: 2px solid #ddd;
+    color: #3e5e9a;
+}
+
+span.round-tabs.four{
+    color: #f1685e;border: 2px solid #f1685e;
+}
+
+li.active span.round-tabs.four{
+    background: #fff !important;
+    border: 2px solid #ddd;
+    color: #f1685e;
+}
+
+span.round-tabs.five{
+    color: #999;border: 2px solid #999;
+}
+
+li.active span.round-tabs.five{
+    background: #fff !important;
+    border: 2px solid #ddd;
+    color: #999;
+}
+
+.nav-tabs > li.active > a span.round-tabs{
+    background: #fafafa;
+}
+.nav-tabs > li {
+    width: 20%;
+}
+/*li.active:before {
+    content: " ";
+    position: absolute;
+    left: 45%;
+    opacity:0;
+    margin: 0 auto;
+    bottom: -2px;
+    border: 10px solid transparent;
+    border-bottom-color: #fff;
+    z-index: 1;
+    transition:0.2s ease-in-out;
+}*/
+.nav-tabs > li:after {
+    content: " ";
+    position: absolute;
+    left: 45%;
+   opacity:0;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 5px solid transparent;
+    border-bottom-color: #ddd;
+    transition:0.1s ease-in-out;
+    
+}
+.nav-tabs > li.active:after {
+    content: " ";
+    position: absolute;
+    left: 45%;
+   opacity:1;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 10px solid transparent;
+    border-bottom-color: #ddd;
+    
+}
+.nav-tabs > li a{
+   width: 70px;
+   height: 70px;
+   margin: 20px auto;
+   border-radius: 100%;
+   padding: 0;
+}
+
+.nav-tabs > li a:hover{
+    background: transparent;
+}
+
+.tab-content{
+}
+.tab-pane{
+   position: relative;
+padding-top: 50px;
+}
+.tab-content .head{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 25px;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+}
+.btn-outline-rounded{
+    padding: 10px 40px;
+    margin: 20px 0;
+    border: 2px solid transparent;
+    border-radius: 25px;
+}
+
+.btn.green{
+    background-color:#5cb85c;
+    /*border: 2px solid #5cb85c;*/
+    color: #ffffff;
+}
+
+
+
+@media( max-width : 585px ){
+    
+    .board {
+width: 90%;
+height:auto !important;
+}
+    span.round-tabs {
+        font-size:16px;
+width: 50px;
+height: 50px;
+line-height: 50px;
+    }
+    .tab-content .head{
+        font-size:20px;
+        }
+    .nav-tabs > li a {
+width: 50px;
+height: 50px;
+line-height:50px;
+}
+
+.nav-tabs > li.active:after {
+content: " ";
+position: absolute;
+left: 35%;
+}
+
+.btn-outline-rounded {
+    padding:12px 20px;
+    }
+}
 
     </style>
 	<body>
 		<div class="header">
+		
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8">
 						<div class="header-left">
 							<img src="images/manipal.png" class="logo" alt="Logo">
 						</div>
-						<div class="top-title">
-							<h1 class="animated infinite bounceInDown">At Your Service 24ₓ7</h1>
-							<h6 class="logo-title animated pulse">Co-operation is the best solution</h6>
+						<div>
+						<div >
+						<img src="admin.png" alt="" width="700px">
+						  <div class="card-body">
+						 
+						  </div>
+						</div>
+						
 						</div>
 					</div>
+					
 					<div class="col-md-4">
+					
 						<div class="menu">
 							<li class="f-item-1"><a href="login.php">Sign In</a></li>
-							<li class="f-item-2"><a href="admin/alogin.php">Admin</a></li>
+							<li class="f-item-2"><a href="admin/a1login.php">Admin</a></li>
 							<li class="f-item-3"><a href="admin/mlogin.php">Manager</a></li>
 							<li class="f-item-4"><a href="mh-4">Teams</a></li>
 							<li class="f-item-5"><a href="mh-5">Find Us</a></li>
@@ -196,11 +433,7 @@ footer{
 				</div>
 			</div>
 		</div>
-		<div class="container">
-			<h1>
-			Manipal Appointment Booking System is a online web application developed so that patients can book appointments online from the confort of their homes and dont have to wait in long queues just to book appointments.
-			</h1>
-		</div>
+		
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
@@ -237,7 +470,7 @@ footer{
 				});
 			});
 		</script>
-		<script>
+		<!-- <script>
 		$(window).scroll(function() {
 		var scroll = $(window).scrollTop();
 		if (scroll >=50) {
@@ -246,7 +479,114 @@ footer{
 		$(".header").removeClass("myheader");
 		}
 			});
+		</script> -->
+		<script>
+		$(function(){
+$('a[title]').tooltip();
+});
+
 		</script>
+		
+		<section style="background:#efefe9;">
+        <div class="container">
+            <div class="row">
+                <div class="board">
+				<h3 class="head text-center">Booking appointments, Now easier than ever.</h3>
+                    <div class="board-inner">
+                    <ul class="nav nav-tabs" id="myTab">
+                    <div class="liner"></div>
+                     <li class="active">
+                     <a href="#home" data-toggle="tab" title="welcome">
+                      <span class="round-tabs one">
+                              <i class="glyphicon glyphicon-home"></i>
+                      </span> 
+                  </a></li>
+
+                  <li><a href="#profile" data-toggle="tab" title="LogIn">
+                     <span class="round-tabs two">
+                         <i class="glyphicon glyphicon-user"></i>
+                     </span> 
+           </a>
+                 </li>
+                 <li><a href="#messages" data-toggle="tab" title="Request Appointment">
+                     <span class="round-tabs three">
+                          <i class="glyphicon glyphicon-gift"></i>
+                     </span> </a>
+                     </li>
+
+                     <li><a href="#settings" data-toggle="tab" title="Wait">
+                         <span class="round-tabs four">
+                              <i class="glyphicon glyphicon-comment"></i>
+                         </span> 
+                     </a></li>
+
+                     <li><a href="#doner" data-toggle="tab" title="Done">
+                         <span class="round-tabs five">
+                              <i class="glyphicon glyphicon-ok"></i>
+                         </span> </a>
+                     </li>
+                     
+                     </ul></div>
+
+                     <div class="tab-content">
+                      <div class="tab-pane fade in active" id="home">
+
+                          <h3 class="head text-center">Welcome to SMIMS Healthcare<sup>™</sup> <span style="color:#f48260;">♥</span></h3>
+                          <p class="narrow text-center">
+                              Book appointment in just a few steps:-
+                          </p>
+                          
+                          <p class="text-center">
+                    <a href="" class="btn btn-success btn-outline-rounded green"> Home <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                </p>
+                      </div>
+                      <div class="tab-pane fade" id="profile">
+                          <h3 class="head text-center">LogIn</h3>
+                          <p class="narrow text-center">
+                              Log into your user account provided by the hospital.
+                          </p>
+                          
+                          <p class="text-center">
+                    <a href="" class="btn btn-success btn-outline-rounded green"> User LogIn <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                </p>
+                          
+                      </div>
+                      <div class="tab-pane fade" id="messages">
+                          <h3 class="head text-center">Request Appointment</h3>
+                          <p class="narrow text-center">
+                              Request an appointment by providing some nessary information.
+                          </p>
+                          
+                          <p class="text-center">
+                    <a href="" class="btn btn-success btn-outline-rounded green"> User LogIn <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                </p>
+                      </div>
+                      <div class="tab-pane fade" id="settings">
+                          <h3 class="head text-center">Wait</h3>
+                          <p class="narrow text-center">
+                              Wait untill the request gets approved.
+                          </p>
+                          
+                          <p class="text-center">
+                    <a href="" class="btn btn-success btn-outline-rounded green"> User LogIn <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                </p>
+                      </div>
+                      <div class="tab-pane fade" id="doner">
+  <div class="text-center">
+    <i class="img-intro icon-checkmark-circle"></i>
+</div>
+<h3 class="head text-center">Almost Done </h3>
+<p class="narrow text-center">
+Once the request is approved , visit the doctor as per the shedule.
+</p>
+</div>
+<div class="clearfix"></div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
 	</body>
-<footer></footer>
+
 </html>

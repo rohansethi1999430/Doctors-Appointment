@@ -3,6 +3,7 @@
 <head>
 <link rel="stylesheet" href="adminmain.css"> 
 </head>
+<?php session_start();?>
 <body background= "doctordesk.jpg">
 <ul>
 <li class="dropdown"><font color="yellow" size="10">ADMIN MODE</font></li>
@@ -73,7 +74,7 @@ Select Name:<br><?php
 				<button type="submit" name="Submit2">Delete by Name</button>
 </form>			
 <?php
-session_start();
+
 include 'dbconfig.php';
 if(isset($_POST['Submit1']))
 {
