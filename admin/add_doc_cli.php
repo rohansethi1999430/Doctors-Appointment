@@ -169,7 +169,8 @@ height: 800px;
                <div class="row" style="padding:0px">
                     <div class="col-md-6"style="padding:0px" 
                         <div class= "form-group">
-                        City:<select name="city" id="city-list" class="form-control"  onChange="getState(this.value);getDoctorRegion(this.value);">
+                        <label style="font-size:20px" >City:</label>
+                       <select name="city" id="city-list" class="form-control"  onChange="getState(this.value);getDoctorRegion(this.value);">
 		<option value="">Select City</option>
         <?php
 		include 'dbconfig.php';
@@ -185,27 +186,38 @@ height: 800px;
 		</select>
 	
 		<label style="font-size:20px" >Clinic:</label>
-		<select id="clinic-list" name="clinic"  >
+		<select id="clinic-list" name="clinic"  class="form-control"  >
 		<option value="">Select Clinic</option>
 		</select>
 		
 		<label style="font-size:20px" >Doctor:</label>
-		<select name="doctor" id="doctor-list">
+		<select name="doctor" id="doctor-list" class="form-control">
 		<option value="">Select Doctor</option>
 		</select>
+        <label style="font-size:20px" >
+		Available Days:</label><br>
+        <center>
+
+        <table>
+		<tr><td>Monday:</td><td><input type="checkbox" value="Monday" name="daylist[]"/></td></tr>
+		<tr><td>Tuesday:</td><td><input type="checkbox" value="Tuesday" name="daylist[]"/></td></tr>
+		<tr><td>Wednesday:</td><td><input type="checkbox" value="Wednesday" name="daylist[]"/></td></tr>
+		<tr><td>Thursday:</td><td><input type="checkbox" value="Thursday" name="daylist[]"/></td></tr>
+		<tr><td>Friday:</td><td><input type="checkbox" value="Friday" name="daylist[]"/></td></tr>
+		<tr><td>Saturday:</td><td><input type="checkbox" value="Saturday" name="daylist[]"/></td></tr>
+		</table>
+        </center>
+        <label style="font-size:20px" >
+		Available Time:</label><br>
+
+        From:<input type="time" name="starttime" class="form-control"><br>
+		To:<input type="time" name="endtime" class="form-control"> &nbsp &nbsp &nbsp
         
                        
-                        Gender:
-                        <input  type="radio" name="gender" value="female"> Female
-                        <input  type="radio" name="gender" value="male"> Male <br>
-                        DOB: <input class="form-control" type="date" name="dob" required>
-                        Experience: <input class="form-control" type ="number" name="experience" required>
-                        Specialization:<input class="form-control" type="text" name="specialization" required>
-                        Contact no.: <input class="form-control" type="number" name="contact" maxlength="10" minlength="10" required>
-                        Address: <input class="form-control" type="text" name="address" required>
-                        Username: <input class="form-control" type="text" name="username" required>
-                        Password: <input class="form-control" type="password" name="pwd" required>
-                        Region: <input class="form-control" type="text" name="region" required><br>
+                       
+                       
+                      
+                       
                         <div class="form-group">
                             <input type="submit" name="Submit" class="btnContact" />
                         </div>
@@ -222,85 +234,36 @@ height: 800px;
             $("body").on("click",".sideMenu.open .nav-item",function(){if(!$(this).hasClass("dropdown")){$(".sideMenu, .overlay").toggleClass("open")}});$(window).resize(function(){if($(".navbar-toggler").is(":hidden")){$(".sideMenu, .overlay").hide()}
     else{$(".sideMenu, .overlay").show()}})})}else{console.log("sidebarNavigation Requires jQuery")}}
     </script>
-    <?php 
+    <?php
+
 if(isset($_POST['logout'])){
 		session_unset();
-        session_destroy();
-        header( "Refresh:1; url=alogin.php"); 
+		session_destroy();
+		header( "Refresh:1; url=alogin.php"); 
 	}
-function newUser()
-{
-	include 'dbconfig.php';
-		$did=$_POST['did'];
-		$name=$_POST['name'];
-		$gender=$_POST['gender'];
-		$dob=$_POST['dob'];
-		$experience=$_POST['experience'];
-		$specialization=$_POST['specialization'];
-		$contact=$_POST['contact'];
-		$address=$_POST['address'];
-		$username=$_POST['username'];
-		$password=$_POST['pwd'];
-		$region=$_POST['region'];
-		$sql = "INSERT INTO doctor (DID, Name, Gender, DOB, Experience, Specialization, Contact,Address,Username,Password,Region) VALUES ('$did','$name','$gender','$dob','$experience','$specialization','$contact','$address','$username','$password','$region') ";
-	if (mysqli_query($conn, $sql)) 
-	{
-        echo "<h2>Record created successfully!! Redirecting to Admin mainpage page....</h2>";
-        
-	} 
-	else
-	{
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-	}
-}
-function checkdid()
-{
-	include 'dbconfig.php';
-	$did=$_POST['did'];
-	$sql= "SELECT * FROM doctor WHERE DID = '$did'";
-
-	$result=mysqli_query($conn,$sql);
-
-		if(mysqli_num_rows($result)!=0)
-       {
-			echo"<b><br>DID already exists!!";
-       }
-	else 
-		if(isset($_POST['Submit']))
-	{ 
-		newUser();
-	}
-
-	
-}
-function checkusername()
-{
-	include 'dbconfig.php';
-	$usn=$_POST['username'];
-	$sql= "SELECT * FROM doctor WHERE Username = '$usn'";
-
-	$result=mysqli_query($conn,$sql);
-
-		if(mysqli_num_rows($result)!=0)
-       {
-			echo"<b><br>Username already exists!!";
-       }
-	else 
-		if(isset($_POST['Submit']))
-	{ 
-		checkdid();
-	}
-
-	
-}
 if(isset($_POST['Submit']))
 {
-	if(!empty($_POST['did']) && !empty($_POST['username']) && !empty($_POST['pwd'])&& !empty($_POST['region']) &&!empty($_POST['experience']) &&!empty($_POST['specialization']) &&!empty($_POST['name']) &&!empty($_POST['dob'])&& !empty($_POST['gender']) &&!empty($_POST['address']) && !empty($_POST['contact']))
-		checkusername();
-	else
-		echo "EMPTY VALUES NOT ALLOWED";
+		include 'dbconfig.php';
+		$cid=$_POST['clinic'];
+		$did=$_POST['doctor'];
+		$starttime=$_POST['starttime'];
+		$endtime=$_POST['endtime'];
+		
+		foreach($_POST['daylist'] as $daylist)
+		{
+				$sql = "INSERT INTO doctor_availability (CID, DID, Day, Starttime, Endtime) VALUES ('$cid','$did','$daylist','$starttime','$endtime')";
+				if (mysqli_query($conn, $sql)) 
+				{
+					echo "<h2>Record created successfully!!</h2>";
+				} 
+				else
+				{
+					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+				}
+		}
 }
 
 ?>
+
 </body>
 </html>
