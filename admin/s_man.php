@@ -10,10 +10,30 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <title>Admin</title>
 </head>
+<?php session_start(); ?>
 <style>
-
+table, th, td {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+table tr:nth-child(odd) {
+ background-color: #fff;
+}
+div{
+    background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+}
 body{
     
     position:relative;
@@ -49,8 +69,8 @@ height: 800px;
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="adminmain.php">Home
-                        <span class="sr-only">(current)</span>
+                <a class="nav-link" href="adminmain.php">Home
+                        
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -59,7 +79,9 @@ height: 800px;
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="add_doc.php">Add Doctor</a>
                         <a class="dropdown-item" href="del_doc.php">Delete Doctor</a>
-                        <a class="dropdown-item" href="s_doc.php">Show Doctor</a>
+                        <a class="dropdown-item" href="s_doc.php">Show Doctor
+                        <span class="sr-only">(current)</span>
+                        </a>
                         <a class="dropdown-item" href="s_doc_shed.php">Show Doctor's Shedule</a>
                     </div>
                 </li>
@@ -67,9 +89,9 @@ height: 800px;
                     <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">Clinic</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="add_cli.php">Add Clinic</a>
-                        <a class="dropdown-item" href="del_cli.php">Delete CLinic</a>
-                        <a class="dropdown-item" href="add_doc_cli.php">Assign Doctor to Clinic</a>
+                    <a class="dropdown-item" href="add_cli.php">Add Clinic</a>
+                        <a class="dropdown-item" href="deleteclinic.php">Delete CLinic</a>
+                        <a class="dropdown-item" href="adddoctorclinic.php">Assign Doctor to Clinic</a>
                         <a class="dropdown-item" href="addmanagerclinic.php">Assign Manager to Clinic</a>
                         <a class="dropdown-item" href="deletedoctorclinic.php">Delete Doctor from Clinic</a>
                         <a class="dropdown-item" href="deletemanagerclinic.php">Delete Manager from Clinic</a>
@@ -80,9 +102,9 @@ height: 800px;
                     <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">Manager</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="add_man.php">Add Manager</a>
-                    <a class="dropdown-item" href="del_man.php">Delete Manager</a>
-                    <a class="dropdown-item" href="s_man.php">Show Manager</a>
+                    <a class="dropdown-item" href="addmanager.php">Add Manager</a>
+                    <a class="dropdown-item" href="deletemanager.php">Delete Manager</a>
+                    <a class="dropdown-item" href="showmanager.php">Show Manager</a>
                     </div>
                 </li>
             </ul>
@@ -90,10 +112,13 @@ height: 800px;
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form> -->
+            
         </div>
     </div>
     </nav>
-    <img src="admin.png" alt="" width="700px">
+
+    
+    
     <script>
     window.onload=function(){if(window.jQuery){$(document).ready(function(){$(".sidebarNavigation .navbar-collapse").hide().clone().appendTo("body").removeAttr("class").addClass("sideMenu").show();$("body").append("<div class='overlay'></div>");
         $(".navbar-toggle, .navbar-toggler").on("click",function(){$(".sideMenu").addClass($(".sidebarNavigation").attr("data-sidebarClass"));$(".sideMenu, .overlay").toggleClass("open");$(".overlay").on("click",function(){$(this).removeClass("open");
@@ -101,5 +126,48 @@ height: 800px;
             $("body").on("click",".sideMenu.open .nav-item",function(){if(!$(this).hasClass("dropdown")){$(".sideMenu, .overlay").toggleClass("open")}});$(window).resize(function(){if($(".navbar-toggler").is(":hidden")){$(".sideMenu, .overlay").hide()}
     else{$(".sideMenu, .overlay").show()}})})}else{console.log("sidebarNavigation Requires jQuery")}}
     </script>
+    </ul>
+</h2>
+<div style="background-image: url('admin.png'); height:100%;"><hi/div>
+<!-- <img src="admin.png" alt="" width="700px"> -->
+<center><h1>SHOW Manager</h1><hr>
+<?php
+
+$con = mysqli_connect('localhost','root','','wt_database');
+if (!$con)
+{
+    die('Could not connect: ' . mysqli_error($con));
+}
+$sql="SELECT * FROM manager order by MID ASC";
+$result = mysqli_query($con,$sql);
+echo "<br><h1>TOTAL DOCTORS IN DATABASE=<b>".mysqli_num_rows($result)."</b></h1><br>";
+echo "<table class='table table-striped table-condense'>
+<tr>
+<th>MID</th>
+<th>Name</th>
+<th>DOB</th>
+<th>Address</th>
+<th>Contact</th>
+<th>Region</th>
+</tr>";
+while($row = mysqli_fetch_array($result)) {
+    echo "<tr>";
+	echo "<td>" . $row['mid'] . "</td>";
+    echo "<td>" . $row['name'] . "</td>";
+    echo "<td>" . $row['dob'] . "</td>";
+	echo "<td>" . $row['address'] . "</td>";
+	echo "<td>" . $row['contact'] . "</td>";
+	echo "<td>" . $row['region'] . "</td>";
+    echo "</tr>";
+}
+echo "</table>";
+mysqli_close($con);
+if(isset($_POST['logout'])){
+		session_unset();
+		session_destroy();
+		header( "Refresh:1; url=alogin.php");
+	}
+?>
+</div>
 </body>
 </html>
