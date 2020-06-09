@@ -79,9 +79,7 @@ height: 800px;
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="add_doc.php">Add Doctor</a>
                         <a class="dropdown-item" href="del_doc.php">Delete Doctor</a>
-                        <a class="dropdown-item" href="s_doc.php">Show Doctor
-                        <span class="sr-only">(current)</span>
-                        </a>
+                        <a class="dropdown-item" href="s_doc.php">Show Doctor</a>
                         <a class="dropdown-item" href="s_doc_shed.php">Show Doctor's Shedule</a>
                     </div>
                 </li>
@@ -89,22 +87,22 @@ height: 800px;
                     <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">Clinic</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="add_cli.php">Add Clinic</a>
-                        <a class="dropdown-item" href="deleteclinic.php">Delete CLinic</a>
-                        <a class="dropdown-item" href="adddoctorclinic.php">Assign Doctor to Clinic</a>
-                        <a class="dropdown-item" href="addmanagerclinic.php">Assign Manager to Clinic</a>
-                        <a class="dropdown-item" href="deletedoctorclinic.php">Delete Doctor from Clinic</a>
-                        <a class="dropdown-item" href="deletemanagerclinic.php">Delete Manager from Clinic</a>
-                        <a class="dropdown-item" href="showclinic.php">Show Clinic</a>
+                        <a class="dropdown-item" href="add_cli.php">Add Clinic</a>
+                        <a class="dropdown-item" href="del_cli.php">Delete CLinic</a>
+                        <a class="dropdown-item" href="add_doc_cli.php">Assign Doctor to Clinic</a>
+                        <a class="dropdown-item" href="add_man_cli.php">Assign Manager to Clinic</a>
+                        <a class="dropdown-item" href="del_doc_cli.php">Delete Doctor from Clinic</a>
+                        <a class="dropdown-item" href="del_man_cli.php">Delete Manager from Clinic</a>
+                        <a class="dropdown-item" href="s_cli.php">Show Clinic</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown" style="padding-right:40px">
                     <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">Manager</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="addmanager.php">Add Manager</a>
-                    <a class="dropdown-item" href="deletemanager.php">Delete Manager</a>
-                    <a class="dropdown-item" href="showmanager.php">Show Manager</a>
+                    <a class="dropdown-item" href="add_man.php">Add Manager</a>
+                    <a class="dropdown-item" href="del_man.php">Delete Manager</a>
+                    <a class="dropdown-item" href="s_man.php">Show Manager</a>
                     </div>
                 </li>
             </ul>
@@ -140,7 +138,7 @@ if (!$con)
 }
 $sql="SELECT * FROM manager order by MID ASC";
 $result = mysqli_query($con,$sql);
-echo "<br><h1>TOTAL DOCTORS IN DATABASE=<b>".mysqli_num_rows($result)."</b></h1><br>";
+echo "<br><h1>TOTAL MANAGERS IN DATABASE=<b>".mysqli_num_rows($result)."</b></h1><br>";
 echo "<table class='table table-striped table-condense'>
 <tr>
 <th>MID</th>

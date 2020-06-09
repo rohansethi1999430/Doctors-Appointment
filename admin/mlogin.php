@@ -35,7 +35,7 @@ if(!empty($_POST['uname']))
 		$_SESSION['mgrname']=$row['name'];
 		$_SESSION['mgrid']=$row['mid'];
 		echo "Logging you in..";
-		header( "Refresh:3; url=mgrmenu.php");
+		header( "Refresh:3; url=man.php");
 	} 
 	else 
 	{ 

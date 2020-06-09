@@ -60,7 +60,7 @@ height: 800px;
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sidebarNavigation" data-sidebarClass="navbar-dark bg-dark" >
         <div class="container-fluid">
-        <a class="navbar-brand" href="#">Admin</a>
+        <a class="navbar-brand" href="#">Show Appointments</a>
         <button class="navbar-toggler leftNavbarToggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -69,42 +69,10 @@ height: 800px;
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                 <li class="nav-item active">
-                <a class="nav-link" href="adminmain.php">Home
+                <a class="nav-link" href="u1login.php">Home
                         
                     </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Doctor</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="add_doc.php">Add Doctor</a>
-                        <a class="dropdown-item" href="del_doc.php">Delete Doctor</a>
-                        <a class="dropdown-item" href="s_doc.php">Show Doctor</a>
-                        <a class="dropdown-item" href="s_doc_shed.php">Show Doctor's Shedule</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Clinic</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="add_cli.php">Add Clinic</a>
-                        <a class="dropdown-item" href="del_cli.php">Delete CLinic</a>
-                        <a class="dropdown-item" href="add_doc_cli.php">Assign Doctor to Clinic</a>
-                        <a class="dropdown-item" href="add_man_cli.php">Assign Manager to Clinic</a>
-                        <a class="dropdown-item" href="del_doc_cli.php">Delete Doctor from Clinic</a>
-                        <a class="dropdown-item" href="del_man_cli.php">Delete Manager from Clinic</a>
-                        <a class="dropdown-item" href="s_cli.php">Show Clinic</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown" style="padding-right:40px">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Manager</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="add_man.php">Add Manager</a>
-                    <a class="dropdown-item" href="del_man.php">Delete Manager</a>
-                    <a class="dropdown-item" href="s_man.php">Show Manager</a>
-                    </div>
-                </li>
+                
             </ul>
             <!-- <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -128,49 +96,56 @@ height: 800px;
 </h2>
 <div style="background-image: url('admin.png'); height:100%;"><hi/div>
 <!-- <img src="admin.png" alt="" width="700px"> -->
-<center><h1>SHOW DOCTOR</h1><hr>
+<center><h1>Appointments:-</h1><hr><br><br><br><br><br><br><br>
 <?php
 
-$con = mysqli_connect('localhost','root','','wt_database');
-if (!$con)
+$conn = mysqli_connect('localhost','root','','wt_database');
+if (!$conn)
 {
     die('Could not connect: ' . mysqli_error($con));
 }
-$sql="SELECT * FROM doctor order by DID ASC";
-$result = mysqli_query($con,$sql);
-echo "<br><h1>TOTAL DOCTORS IN DATABASE=<b>".mysqli_num_rows($result)."</b></h1><br>";
+$username=$_SESSION['username'];
+	$sql1 = "Select * from book where username ='".$username."' order by DOV desc";
+			$result1=mysqli_query($conn, $sql1); 
+           
 echo "<table class='table table-striped table-condense'>
 <tr>
-<th>DID</th>
-<th>Doctor Name</th>
-<th>DOB</th>
-<th>Experience</th>
-<th>Specialization</th>
-<th>Address</th>
-<th>Contact</th>
-<th>Region</th>
-</tr>";
-while($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
-	echo "<td>" . $row['did'] . "</td>";
-    echo "<td>Dr. " . $row['name'] . "</td>";
-    echo "<td>" . $row['dob'] . "</td>";
-    echo "<td>" . $row['experience'] . "</td>";
-    echo "<td>" . $row['specialization'] . "</td>";
-	echo "<td>" . $row['address'] . "</td>";
-	echo "<td>" . $row['contact'] . "</td>";
-	echo "<td>" . $row['region'] . "</td>";
-    echo "</tr>";
-    
-}
-echo "</table>";
-mysqli_close($con);
-if(isset($_POST['logout'])){
-		session_unset();
-		session_destroy();
-		header( "Refresh:1; url=alogin.php");
-	}
-?>
+<tr>
+					<th>Appointment-Date</th>
+					<th>Time</th>
+					<th>Name</th>
+					<th>Clinic</th>
+					<th>Doctor</th>
+					<th>Status</th>
+					<th>Booked-On</th>
+					</tr>";
+			while($row1 = mysqli_fetch_array($result1))
+			{
+				$sql2="SELECT * from doctor where did=".$row1['DID'];
+				$result2= mysqli_query($conn,$sql2);
+				while($row2= mysqli_fetch_array($result2))
+				{
+					$sql3="SELECT * from clinic where CID=".$row1['CID'];
+						$result3= mysqli_query($conn,$sql3);
+						while($row3= mysqli_fetch_array($result3))
+						{
+								echo "<tr>";
+								echo "<td>" . $row1['DOV'] . "</td>";
+								echo "<td>" . $row1['Time'] . "</td>";
+								echo "<td>" . $row1['Fname'] . "</td>";
+								echo "<td>" . $row3['name']."-".$row3['town'] . "</td>";
+								echo "<td>" . $row2['name'] . "</td>";
+								echo "<td>" . $row1['Status'] . "</td>";
+								echo "<td>" . $row1['Timestamp'] . "</td>";
+								echo "</tr>";
+						}
+				}
+				
+			}
+	?>
+</center>           
+    </table>
+    </div>
 </div>
 </body>
 </html>

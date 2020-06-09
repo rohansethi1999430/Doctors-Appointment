@@ -70,10 +70,10 @@ height: 800px;
                         <a class="dropdown-item" href="add_cli.php">Add Clinic</a>
                         <a class="dropdown-item" href="del_cli.php">Delete CLinic</a>
                         <a class="dropdown-item" href="add_doc_cli.php">Assign Doctor to Clinic</a>
-                        <a class="dropdown-item" href="addmanagerclinic.php">Assign Manager to Clinic</a>
-                        <a class="dropdown-item" href="deletedoctorclinic.php">Delete Doctor from Clinic</a>
-                        <a class="dropdown-item" href="deletemanagerclinic.php">Delete Manager from Clinic</a>
-                        <a class="dropdown-item" href="showclinic.php">Show Clinic</a>
+                        <a class="dropdown-item" href="add_man_cli.php">Assign Manager to Clinic</a>
+                        <a class="dropdown-item" href="del_doc_cli.php">Delete Doctor from Clinic</a>
+                        <a class="dropdown-item" href="del_man_cli.php">Delete Manager from Clinic</a>
+                        <a class="dropdown-item" href="s_cli.php">Show Clinic</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown" style="padding-right:40px">

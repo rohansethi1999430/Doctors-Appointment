@@ -18,8 +18,8 @@
 
 
 .header{
-background-image: url('https://images.unsplash.com/photo-1536064479547-7ee40b74b807?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
-background-image:height 100px;
+background-image: url("admin.png");
+background-image:width="700px";
 background-repeat: no-repeat;
 background-attachment: fixed;
 height: 1000px;
@@ -186,9 +186,9 @@ footer{
 					</div>
 					<div class="col-md-4">
 						<div class="menu">
-							<li class="f-item-1"><a href="book.php">Book Appointment</a></li><br>
-							<li class="f-item-2"><a href="viewpatientappointments.php">Show Appointment</a></li><br>
-							<li class="f-item-3"><a href="cancelbookingpatient.php">Cancel Appointment</a></li><br>
+							<li class="f-item-1"><a href="book2.php">Book Appointment</a></li><br>
+							<li class="f-item-2"><a href="s_booking.php">Show Appointment</a></li><br>
+							<li class="f-item-3"><a href="c_booking.php">Cancel Appointment</a></li><br>
 							<!-- <li class="f-item-4"><a href="mh-4">Teams</a></li>
 							<li class="f-item-5"><a href="mh-5">Find Us</a></li> -->
 						</div>

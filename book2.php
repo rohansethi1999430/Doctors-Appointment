@@ -10,34 +10,56 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="jquerypart.js" type="text/javascript"></script>
+<title>Book Appointment</title>
+</head><?php session_start();include "dbconfig.php"; ?>
 <script>
-function getState(val) {
+
+function getTown(val) {
+	$.ajax({
+	type: "POST",
+	url: "get_town.php",
+	data:'countryid='+val,
+	success: function(data){
+		$("#town-list").html(data);
+	}
+	});
+}
+function getClinic(val) {
 	$.ajax({
 	type: "POST",
 	url: "getclinic.php",
-	data:'city='+val,
+	data:'townid='+val,
 	success: function(data){
 		$("#clinic-list").html(data);
 	}
 	});
 }
-function getDoctorRegion(val) {
+function getDoctorday(val) {
 	$.ajax({
 	type: "POST",
-	url: "getdoctorregion.php",
-	data:'city='+val,
+	url: "getdoctordaybooking.php",
+	data:'cid='+val,
 	success: function(data){
 		$("#doctor-list").html(data);
 	}
 	});
 }
 
+function getDay(val) {
+	var cidval=document.getElementById("clinic-list").value;
+	var didval=document.getElementById("doctor-list").value;
+	$.ajax({
+	type: "POST",
+	url: "getDay.php",
+	data:'date='+val+'&cidval='+cidval+'&didval='+didval,
+	success: function(data){
+		$("#datestatus").html(data);
+	}
+	});
+}
+
 </script>
-<title>Admin</title>
-</head>
-<?php session_start(); ?>
- <style>
+<style>
 .contact-form{
     background: #fff;
     margin-top: 0%;
@@ -107,122 +129,93 @@ height: 800px;
 .sideMenu ul{margin:0;padding:0 15px}</style>
 <body>
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sidebarNavigation" data-sidebarClass="navbar-dark bg-dark" >
         <div class="container-fluid">
-        <a class="navbar-brand" href="#">Admin</a>
+        <a class="navbar-brand" href="#">Book Appointment</a>
         <button class="navbar-toggler leftNavbarToggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                 <li class="nav-item active">
-                <a class="nav-link" href="adminmain.php">Home
+                    <a class="nav-link" href="new.php">Home
                         <span class="sr-only">(current)</span>
                     </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Doctor</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="add_doc.php">Add Doctor</a>
-                        <a class="dropdown-item" href="del_doc.php">Delete Doctor</a>
-                        <a class="dropdown-item" href="s_doc.php">Show Doctor</a>
-                        <a class="dropdown-item" href="s_doc_shed.php">Show Doctor's Shedule</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Clinic</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="add_cli.php">Add Clinic</a>
-                        <a class="dropdown-item" href="del_cli.php">Delete CLinic</a>
-                        <a class="dropdown-item" href="add_doc_cli.php">Assign Doctor to Clinic</a>
-                        <a class="dropdown-item" href="add_man_cli.php">Assign Manager to Clinic</a>
-                        <a class="dropdown-item" href="del_doc_cli.php">Delete Doctor from Clinic</a>
-                        <a class="dropdown-item" href="del_man_cli.php">Delete Manager from Clinic</a>
-                        <a class="dropdown-item" href="s_cli.php">Show Clinic</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown" style="padding-right:40px">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Manager</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="add_man.php">Add Manager</a>
-                    <a class="dropdown-item" href="del_man.php">Delete Manager</a>
-                    <a class="dropdown-item" href="s_man.php">Show Manager</a>
-                    </div>
-                </li>
+               
             </ul>
+            <!-- <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
         </div>
     </div>
     </nav>
     <img src="admin.png" alt="" width="700px">
     <div style="float:right" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
     <div class="container contact-form"style="padding:0" >
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <h3>Assign Doctor To a Clinic</h3><br><br>
+   
+    <form action="book2.php" method="post">
+	
+                <h3>Add Booking Details :-</h3>
                <div class="row" style="padding:0px">
                     <div class="col-md-6"style="padding:0px" 
                         <div class= "form-group">
-                        <label style="font-size:20px" >City:</label>
-                       <select name="city" id="city-list" class="form-control"  onChange="getState(this.value);getDoctorRegion(this.value);">
+                        <label><b>Name:</b></label><br>
+		<input type="text" placeholder="Enter Full name of patient" name="fname" required  class="form-control""><br>
+		
+		<label><b>Time:</b></label><br>
+		<input type="radio" name="time" value="3 PM-4 PM" > 3 PM-4 PM
+		<input type="radio" name="time" value="4 PM-5 PM"> 4 PM-5 PM
+		<input type="radio" name="time" value="5 PM-6 PM"> 5 PM-6 PM<br>
+	
+		<label style="font-size:20px" >City:</label>
+		<select class = "form-control input-lg" name="city" id="city-list"  class="form-control"  onChange="getTown(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select City</option>
-        <?php
-		include 'dbconfig.php';
-		$sql1="SELECT distinct City FROM clinic";
+		<?php
+		$sql1="SELECT distinct(city) FROM clinic";
          $results=$conn->query($sql1); 
 		while($rs=$results->fetch_assoc()) { 
 		?>
-		<option value="<?php echo $rs["City"]; ?>"><?php echo $rs["City"]; ?></option>
+		<option value="<?php echo $rs["city"]; ?>"><?php echo $rs["city"]; ?></option>
 		<?php
-		
 		}
 		?>
 		</select>
-	
-		<label style="font-size:20px" >Clinic:</label>
-		<select id="clinic-list" name="clinic"  class="form-control"  >
+        <label style="font-size:20px" >Town:</label><br>
+		<select  class="form-control" id="town-list" name="Town" onChange="getClinic(this.value);" style="width:100%;height:35px;border-radius:9px">
+		<option value="">Select Town</option>
+		</select>
+		
+		<label style="font-size:20px" >Clinic:</label><br>
+		<select  class="form-control" id="clinic-list" name="Clinic" onChange="getDoctorday(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select Clinic</option>
 		</select>
 		
-		<label style="font-size:20px" >Doctor:</label>
-		<select name="doctor" id="doctor-list" class="form-control">
+		<label style="font-size:20px" >Doctor:</label><br>
+		<select  class="form-control" id="doctor-list" name="Doctor" onChange="getDate(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select Doctor</option>
 		</select>
-        <label style="font-size:20px" >
-		Available Days:</label><br>
-        <center>
-
-        <table>
-		<tr><td>Monday:</td><td><input type="checkbox" value="Monday" name="daylist[]"/></td></tr>
-		<tr><td>Tuesday:</td><td><input type="checkbox" value="Tuesday" name="daylist[]"/></td></tr>
-		<tr><td>Wednesday:</td><td><input type="checkbox" value="Wednesday" name="daylist[]"/></td></tr>
-		<tr><td>Thursday:</td><td><input type="checkbox" value="Thursday" name="daylist[]"/></td></tr>
-		<tr><td>Friday:</td><td><input type="checkbox" value="Friday" name="daylist[]"/></td></tr>
-		<tr><td>Saturday:</td><td><input type="checkbox" value="Saturday" name="daylist[]"/></td></tr>
-		</table>
-        </center>
-        <label style="font-size:20px" >
-		Available Time:</label><br>
-
-        From:<input type="time" name="starttime" class="form-control"><br>
-		To:<input type="time" name="endtime" class="form-control"> &nbsp &nbsp &nbsp
-        
-                       
-                       
-                       
-                      
-                       
+		
+		
+		<label><b>Date of Visit:</b></label><br>
+		<input class ="form-control" type="date" name="dov" onChange="getDay(this.value);"  required><br><br>
+		<div id="datestatus"> </div>
+		<center>
                         <div class="form-group">
-                            <input type="submit" name="Submit" class="btnContact" />
+                            <input type="submit" name="submit" class="btnContact" />
                         </div>
+                        </center>
                     </div>
                     
                 </div>
             </form>
+            
 </div>
     </div>
     <script>
@@ -232,36 +225,61 @@ height: 800px;
             $("body").on("click",".sideMenu.open .nav-item",function(){if(!$(this).hasClass("dropdown")){$(".sideMenu, .overlay").toggleClass("open")}});$(window).resize(function(){if($(".navbar-toggler").is(":hidden")){$(".sideMenu, .overlay").hide()}
     else{$(".sideMenu, .overlay").show()}})})}else{console.log("sidebarNavigation Requires jQuery")}}
     </script>
-    <?php
 
-if(isset($_POST['logout'])){
-		session_unset();
-		session_destroy();
-		header( "Refresh:1; url=alogin.php"); 
-	}
-if(isset($_POST['Submit']))
+<?php
+
+if(isset($_POST['submit']))
 {
-		include 'dbconfig.php';
-		$cid=$_POST['clinic'];
-		$did=$_POST['doctor'];
-		$starttime=$_POST['starttime'];
-		$endtime=$_POST['endtime'];
 		
-		foreach($_POST['daylist'] as $daylist)
+		include 'dbconfig.php';
+		$fname=$_POST['fname'];
+		$time=$_POST['time'];
+		$username=$_SESSION['username'];
+		$cid=$_POST['Clinic'];
+		$did=$_POST['Doctor'];
+		$dov=$_POST['dov'];
+		$status="Booking Registered.Wait for the update";
+		$timestamp=date('Y-m-d H:i:s');
+		$sql = "INSERT INTO book (Username,Fname,Time,CID,DID,DOV,Timestamp,Status) VALUES ('$username','$fname','$time','$cid','$did','$dov','$timestamp','$status') ";
+		if(!empty($_POST['fname'])&&!empty($_POST['time'])&&!empty($_SESSION['username'])&&!empty($_POST['Clinic'])&&!empty($_POST['Doctor']) && !empty($_POST['dov']))
 		{
-				$sql = "INSERT INTO doctor_availability (CID, DID, Day, Starttime, Endtime) VALUES ('$cid','$did','$daylist','$starttime','$endtime')";
+			$checkday = strtotime($dov);
+			$compareday = date("l", $checkday);
+			$flag=0;
+			require_once("dbconfig.php");
+			$query ="SELECT * FROM doctor_availability WHERE DID = '" .$did. "' AND CID='".$cid."'";
+			$results = $conn->query($query);
+			while($rs=$results->fetch_assoc())
+			{
+				if($rs["day"]==$compareday)
+				{
+					$flag++;
+					break;
+				}
+			}
+			if($flag==0)
+			{
+				echo "<h2>Select another date as Doctor Unavailable on ".$compareday."</h2>";
+			}
+			else
+			{
 				if (mysqli_query($conn, $sql)) 
 				{
-					echo "<h2>Record created successfully!!</h2>";
+						echo "<h2>Booking successful!!</h2>";
+						
 				} 
 				else
 				{
 					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
+			}
+		}
+		else
+		{
+			echo "Enter data properly!!!!";
 		}
 }
-
 ?>
-
+	</form>
 </body>
 </html>

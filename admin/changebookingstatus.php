@@ -37,15 +37,19 @@ tr,td{
 		
 	
 		<label style="font-size:20px"><b>Doctor:</b></label><br>
-		<select name="doctor" id="doctor-list" class="demoInputBox" style="width:100%;height:35px;border-radius:9px">
+		<select name="doctor" id="doctor-list" class="form-control" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select Doctor</option>
 		<?php
 		session_start();
+		
 		$mid=$_SESSION['mgrid'];
-		$sql1="SELECT * FROM doctor where did in(select did from doctor_availability where cid in (select cid from manager_clinic where mid=$mid));";
+		
+		$sql1="SELECT * FROM doctor where did in(SELECT did FROM doctor_availability where cid in (SELECT cid FROM manager_clinic where mid=$mid));";
          $results=$conn->query($sql1); 
 		while($rs=$results->fetch_assoc()) { 
+			echo $rs["mid"];
 		?>
+		
 		<option value="<?php echo $rs["did"]; ?>"><?php echo "Dr. ".$rs["name"]; ?></option>
 		<?php
 		}
@@ -54,7 +58,7 @@ tr,td{
         <br>
 		
 		<label><b>Date:</b></label><br>
-		<input type="date" name="dateselected" required><br><br>
+		<input type="date" name="dateselected" class="form-control" required><br><br>
 		<br>
 			<button type="submit" style="position:center" name="submit" value="Submit">Submit</button>
 			</form>
@@ -66,7 +70,7 @@ if(isset($_POST['submit']))
 		$did=$_POST['doctor'];
 		$cid=1;
 		$dateselected=$_POST['dateselected'];
-		$sql1 = "select * from book where DOV='". $_POST['dateselected']."' AND DID= $did AND CID= $cid order by Timestamp ASC";
+		$sql1 = "select * from book where DID= $did  order by Timestamp ASC";
 		 $results1=$conn->query($sql1); 
 			require_once("dbconfig.php");
 ?>			
@@ -82,7 +86,8 @@ if(isset($_POST['submit']))
 <?php
 			while($rs1=$results1->fetch_assoc())
 			{
-				echo "<tr>";
+				
+				echo '<tr>';
 					echo  '<td><input type="text" name="username[]" id="username" value="'.$rs1["Username"].'" readonly></td>'
 					.'<td><input type="text" name="fname[]" id="fname" value="'.$rs1["Fname"].'" readonly></td>'
 					.'<td><input type="date" name="dov[]" id="dov" value="'.$rs1["DOV"].'" readonly></td>'

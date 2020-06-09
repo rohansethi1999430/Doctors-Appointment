@@ -10,83 +10,29 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="jquerypart.js" type="text/javascript"></script>
-<script>
-function getState(val) {
-	$.ajax({
-	type: "POST",
-	url: "getclinic.php",
-	data:'city='+val,
-	success: function(data){
-		$("#clinic-list").html(data);
-	}
-	});
-}
-function getDoctorRegion(val) {
-	$.ajax({
-	type: "POST",
-	url: "getdoctorregion.php",
-	data:'city='+val,
-	success: function(data){
-		$("#doctor-list").html(data);
-	}
-	});
-}
 
-</script>
 <title>Admin</title>
 </head>
 <?php session_start(); ?>
- <style>
-.contact-form{
-    background: #fff;
-    margin-top: 0%;
-    margin-bottom: 5%;
-    width: 100%;
+<style>
+table, th, td {
+  border: 2px solid black;
+  border-collapse: collapse;
 }
-.contact-form .form-control{
-    border-radius:1rem;
+th, td {
+  padding: 15px;
+  text-align: left;
 }
-.contact-image{
-    text-align: center;
+table tr:nth-child(even) {
+  background-color: #eee;
 }
-.contact-image img{
-    border-radius: 6rem;
-    width: 11%;
-    margin-top: -3%;
-    transform: rotate(29deg);
+table tr:nth-child(odd) {
+ background-color: #fff;
 }
-.contact-form form{
-    padding-top: 10%;
-}
-.contact-form form .row{
-    margin-bottom: -7%;
-}
-.contact-form h3{
-    margin-bottom: 0%;
-    margin-top: -10%;
-    text-align: center;
-    color: #0062cc;
-}
-.contact-form .btnContact {
-    width: 50%;
-    border: none;
-    border-radius: 1rem;
-    padding: 1.5%;
-    background: #dc3545;
-    font-weight: 600;
-    color: #fff;
-    cursor: pointer;
-}
-.btnContactSubmit
-{
-    width: 50%;
-    border-radius: 1rem;
-    padding: 1.5%;
-    color: #fff;
-    background-color: #0062cc;
-    border: none;
-    cursor: pointer;
+div{
+    background-repeat: no-repeat;
+  background-attachment: fixed;
+  
 }
 body{
     
@@ -97,6 +43,7 @@ background-repeat: no-repeat;
 background-attachment: fixed;
 height: 800px;
 }
+
 .overlay,.sideMenu{position:fixed;bottom:0}
 .overlay{top:0;left:-100%;right:100%;margin:auto;background-color:rgba(0,0,0,.5);z-index:998;transition:all ease 0.2s}
 .overlay.open{left:0;right:0}
@@ -107,8 +54,10 @@ height: 800px;
 .sideMenu ul{margin:0;padding:0 15px}</style>
 <body>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sidebarNavigation" data-sidebarClass="navbar-dark bg-dark" >
         <div class="container-fluid">
         <a class="navbar-brand" href="#">Admin</a>
@@ -116,11 +65,12 @@ height: 800px;
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                 <li class="nav-item active">
                 <a class="nav-link" href="adminmain.php">Home
-                        <span class="sr-only">(current)</span>
+                        
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -156,75 +106,17 @@ height: 800px;
                     </div>
                 </li>
             </ul>
+            <!-- <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
+            
         </div>
     </div>
     </nav>
-    <img src="admin.png" alt="" width="700px">
-    <div style="float:right" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-    <div class="container contact-form"style="padding:0" >
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <h3>Assign Doctor To a Clinic</h3><br><br>
-               <div class="row" style="padding:0px">
-                    <div class="col-md-6"style="padding:0px" 
-                        <div class= "form-group">
-                        <label style="font-size:20px" >City:</label>
-                       <select name="city" id="city-list" class="form-control"  onChange="getState(this.value);getDoctorRegion(this.value);">
-		<option value="">Select City</option>
-        <?php
-		include 'dbconfig.php';
-		$sql1="SELECT distinct City FROM clinic";
-         $results=$conn->query($sql1); 
-		while($rs=$results->fetch_assoc()) { 
-		?>
-		<option value="<?php echo $rs["City"]; ?>"><?php echo $rs["City"]; ?></option>
-		<?php
-		
-		}
-		?>
-		</select>
-	
-		<label style="font-size:20px" >Clinic:</label>
-		<select id="clinic-list" name="clinic"  class="form-control"  >
-		<option value="">Select Clinic</option>
-		</select>
-		
-		<label style="font-size:20px" >Doctor:</label>
-		<select name="doctor" id="doctor-list" class="form-control">
-		<option value="">Select Doctor</option>
-		</select>
-        <label style="font-size:20px" >
-		Available Days:</label><br>
-        <center>
 
-        <table>
-		<tr><td>Monday:</td><td><input type="checkbox" value="Monday" name="daylist[]"/></td></tr>
-		<tr><td>Tuesday:</td><td><input type="checkbox" value="Tuesday" name="daylist[]"/></td></tr>
-		<tr><td>Wednesday:</td><td><input type="checkbox" value="Wednesday" name="daylist[]"/></td></tr>
-		<tr><td>Thursday:</td><td><input type="checkbox" value="Thursday" name="daylist[]"/></td></tr>
-		<tr><td>Friday:</td><td><input type="checkbox" value="Friday" name="daylist[]"/></td></tr>
-		<tr><td>Saturday:</td><td><input type="checkbox" value="Saturday" name="daylist[]"/></td></tr>
-		</table>
-        </center>
-        <label style="font-size:20px" >
-		Available Time:</label><br>
-
-        From:<input type="time" name="starttime" class="form-control"><br>
-		To:<input type="time" name="endtime" class="form-control"> &nbsp &nbsp &nbsp
-        
-                       
-                       
-                       
-                      
-                       
-                        <div class="form-group">
-                            <input type="submit" name="Submit" class="btnContact" />
-                        </div>
-                    </div>
-                    
-                </div>
-            </form>
-</div>
-    </div>
+    
+    
     <script>
     window.onload=function(){if(window.jQuery){$(document).ready(function(){$(".sidebarNavigation .navbar-collapse").hide().clone().appendTo("body").removeAttr("class").addClass("sideMenu").show();$("body").append("<div class='overlay'></div>");
         $(".navbar-toggle, .navbar-toggler").on("click",function(){$(".sideMenu").addClass($(".sidebarNavigation").attr("data-sidebarClass"));$(".sideMenu, .overlay").toggleClass("open");$(".overlay").on("click",function(){$(this).removeClass("open");
@@ -232,36 +124,44 @@ height: 800px;
             $("body").on("click",".sideMenu.open .nav-item",function(){if(!$(this).hasClass("dropdown")){$(".sideMenu, .overlay").toggleClass("open")}});$(window).resize(function(){if($(".navbar-toggler").is(":hidden")){$(".sideMenu, .overlay").hide()}
     else{$(".sideMenu, .overlay").show()}})})}else{console.log("sidebarNavigation Requires jQuery")}}
     </script>
-    <?php
+    </ul>
+</h2>
+<div style="background-image: url('admin.png'); height:100%;"><hi/div>
+<!-- <img src="admin.png" alt="" width="700px"> -->
+<center><h1>SHOW Manager</h1><hr>
+<?php
 
-if(isset($_POST['logout'])){
-		session_unset();
-		session_destroy();
-		header( "Refresh:1; url=alogin.php"); 
-	}
-if(isset($_POST['Submit']))
+$con = mysqli_connect('localhost','root','','wt_database');
+if (!$con)
 {
-		include 'dbconfig.php';
-		$cid=$_POST['clinic'];
-		$did=$_POST['doctor'];
-		$starttime=$_POST['starttime'];
-		$endtime=$_POST['endtime'];
-		
-		foreach($_POST['daylist'] as $daylist)
-		{
-				$sql = "INSERT INTO doctor_availability (CID, DID, Day, Starttime, Endtime) VALUES ('$cid','$did','$daylist','$starttime','$endtime')";
-				if (mysqli_query($conn, $sql)) 
-				{
-					echo "<h2>Record created successfully!!</h2>";
-				} 
-				else
-				{
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-				}
-		}
+    die('Could not connect: ' . mysqli_error($con));
 }
-
+$sql="SELECT * FROM clinic order by City,Town,CID ASC";
+$result = mysqli_query($con,$sql);
+echo "<br><h1>TOTAL CLINICS IN DATABASE=<b>".mysqli_num_rows($result)."</b></h1><br>";
+echo "<table class='table table-striped table-condense'>
+<tr>
+<th>CID</th>
+<th>Name</th>
+<th>Address</th>
+<th>Town</th>
+<th>City</th>
+<th>Contact</th>
+<th>MID</th>
+</tr>";
+while($row = mysqli_fetch_array($result)) {
+    echo "<tr>";
+	echo "<td>" . $row['cid'] . "</td>";
+    echo "<td>" . $row['name'] . "</td>";
+    echo "<td>" . $row['address'] . "</td>";
+    echo "<td>" . $row['town'] . "</td>";
+    echo "<td>" . $row['city'] . "</td>";
+	echo "<td>" . $row['contact'] . "</td>";
+	echo "<td>" . $row['mid'] . "</td>";
+    echo "</tr>";
+}
+echo "</table>";
+mysqli_close($con);
 ?>
-
 </body>
 </html>

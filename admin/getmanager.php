@@ -14,12 +14,12 @@ require_once("dbconfig.php");
 	<option value="">Select Manager</option>
 <?php
 	while($rs=$results->fetch_assoc()) {
-		$query1="Select Name from manager where MID=".$rs["MID"];
+		$query1="Select Name from manager where MID=".$rs["mid"];
 		$result1=$conn->query($query1);
 		while($rs1=$result1->fetch_assoc())
 		{
 ?>
-	<option value="<?php echo $rs["MID"]; ?>"><?php echo "(MID=".$rs["MID"].")".$rs1["Name"]; ?></option>
+	<option value="<?php echo $rs["mid"]; ?>"><?php echo "(mid=".$rs["mid"].")".$rs1["Name"]; ?></option>
 <?php
 		}
 }

@@ -17,6 +17,9 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     </head>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,800');
@@ -430,8 +433,8 @@ left: 35%;
 							<li class="f-item-1"><a href="login.php">Sign In</a></li>
 							<li class="f-item-2"><a href="admin/a1login.php">Admin</a></li>
 							<li class="f-item-3"><a href="admin/mlogin.php">Manager</a></li>
-							<li class="f-item-4"><a href="mh-4">Teams</a></li>
-							<li class="f-item-5"><a href="mh-5">Find Us</a></li>
+							<li class="f-item-4"><a href="about.html">Developers</a></li>
+							<!-- <li class="f-item-5"><a href="mh-5">Find Us</a></li> -->
 						</div>
 					</div>
 				</div>
@@ -439,7 +442,7 @@ left: 35%;
 		</div>
 		<h1>
   <center>
-  <a href="" class="typewrite" data-period="2000" data-type='[ "Hi, Welcome To Manipal Healthcare.", "Now You Can Awail Our New Facility Of Online Appointment Booking!!!", "To Start Using This Service Visit SMIMS "]'>
+  <a href="" class="typewrite" data-period="2000" data-type='[ "Hi, Welcome To Manipal Healthcare.", "Now You Can Avail Our New Facility Of Online Appointment Booking!!!", "To Start Using This Service Visit SMIMS "]'>
     <span class="wrap"></span>
   </a>
   </center>

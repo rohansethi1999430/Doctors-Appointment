@@ -10,10 +10,56 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>Admin</title>
-</head>
-<?php session_start(); ?>
- <style>
+<title>Cancel Appointment</title>
+</head><?php session_start();include "dbconfig.php"; ?>
+<script>
+
+function getTown(val) {
+	$.ajax({
+	type: "POST",
+	url: "get_town.php",
+	data:'countryid='+val,
+	success: function(data){
+		$("#town-list").html(data);
+	}
+	});
+}
+function getClinic(val) {
+	$.ajax({
+	type: "POST",
+	url: "getclinic.php",
+	data:'townid='+val,
+	success: function(data){
+		$("#clinic-list").html(data);
+	}
+	});
+}
+function getDoctorday(val) {
+	$.ajax({
+	type: "POST",
+	url: "getdoctordaybooking.php",
+	data:'cid='+val,
+	success: function(data){
+		$("#doctor-list").html(data);
+	}
+	});
+}
+
+function getDay(val) {
+	var cidval=document.getElementById("clinic-list").value;
+	var didval=document.getElementById("doctor-list").value;
+	$.ajax({
+	type: "POST",
+	url: "getDay.php",
+	data:'date='+val+'&cidval='+cidval+'&didval='+didval,
+	success: function(data){
+		$("#datestatus").html(data);
+	}
+	});
+}
+
+</script>
+<style>
 .contact-form{
     background: #fff;
     margin-top: 0%;
@@ -82,76 +128,79 @@ height: 800px;
 .sideMenu.open{left:0;display:block;overflow-y:auto}
 .sideMenu ul{margin:0;padding:0 15px}</style>
 <body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sidebarNavigation" data-sidebarClass="navbar-dark bg-dark" >
         <div class="container-fluid">
-        <a class="navbar-brand" href="#">Admin</a>
+        <a class="navbar-brand" href="#">Cancel Appointment</a>
         <button class="navbar-toggler leftNavbarToggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                 <li class="nav-item active">
-                <a class="nav-link" href="adminmain.php">Home
-                       
+                    <a class="nav-link" href="u1login.php">Home
+                        <span class="sr-only">(current)</span>
                     </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Doctor</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="add_doc.php">Add Doctor</a>
-                        <a class="dropdown-item" href="del_doc.php">Delete Doctor</a>
-                        <a class="dropdown-item" href="s_doc.php">Show Doctor</a>
-                        <a class="dropdown-item" href="s_doc_shed.php">Show Doctor's Shedule</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Clinic</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="add_cli.php">Add Clinic</a>
-                        <a class="dropdown-item" href="del_cli.php">Delete CLinic</a>
-                        <a class="dropdown-item" href="add_doc_cli.php">Assign Doctor to Clinic</a>
-                        <a class="dropdown-item" href="add_man_cli.php">Assign Manager to Clinic</a>
-                        <a class="dropdown-item" href="del_doc_cli.php">Delete Doctor from Clinic</a>
-                        <a class="dropdown-item" href="del_man_cli.php">Delete Manager from Clinic</a>
-                        <a class="dropdown-item" href="s_cli.php">Show Clinic</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown" style="padding-right:40px">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Manager</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="add_man.php">Add Manager</a>
-                    <a class="dropdown-item" href="del_man.php">Delete Manager</a>
-                    <a class="dropdown-item" href="s_man.php">Show Manager</a>
-                    </div>
-                </li>
+               
             </ul>
+            <!-- <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
         </div>
     </div>
     </nav>
     <img src="admin.png" alt="" width="700px">
     <div style="float:right" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
     <div class="container contact-form"style="padding:0" >
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <h3>Delete Clinic</h3>
+   
+    <form action="c_booking.php" method="post">
+	
+                <h3>Select Appointment To Cancel:-</h3><br>
                <div class="row" style="padding:0px">
                     <div class="col-md-6"style="padding:0px" 
                         <div class= "form-group">
-                            Enter Clinic ID: <br><input class="form-control" type="number" name="cid" required><br><br>
-                        <center>
-                        <div class="form-group-">
-                            <input type="submit" name="Submit1" class="btnContact" />
+                        
+		<select name="appointment" id="appointment-list" class="demoInputBox"  style="width:100%;height:35px;border-radius:9px">
+        <option value="">Select Appointment</option>
+        <?php
+		session_start();
+		$username=$_SESSION['username'];
+		$date= date('Y-m-d');
+		$sql1="SELECT * from book where username='".$username."'and status not like 'Cancelled by Patient' and DOV >='$date'";
+         $results=$conn->query($sql1); 
+		while($rs=$results->fetch_assoc()) {
+			$sql2="select * from doctor where did=".$rs["DID"];
+			$results2=$conn->query($sql2);
+				while($rs2=$results2->fetch_assoc()) {
+					$sql3="select * from clinic where cid=".$rs["CID"];
+					$results3=$conn->query($sql3);
+		while($rs3=$results3->fetch_assoc()) {
+			
+        ?>
+        <option value="<?php echo $rs["Timestamp"]; ?>"><?php echo "Patient: ".$rs["Fname"]." Date: ".$rs["DOV"]." -Dr.".$rs2["name"]." -Clinic: ".$rs3["name"]." -Town: ".$rs3["town"]." - Booked on:".$rs["Timestamp"]; ?></option>
+		<?php
+		}
+		}
+		}
+		?>
+		</select><br><br><br>
+		<center>
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btnContact" />
                         </div>
+                        </center>
                     </div>
-                    </center>
+                    
                 </div>
             </form>
+            
 </div>
     </div>
     <script>
@@ -161,28 +210,25 @@ height: 800px;
             $("body").on("click",".sideMenu.open .nav-item",function(){if(!$(this).hasClass("dropdown")){$(".sideMenu, .overlay").toggleClass("open")}});$(window).resize(function(){if($(".navbar-toggler").is(":hidden")){$(".sideMenu, .overlay").hide()}
     else{$(".sideMenu, .overlay").show()}})})}else{console.log("sidebarNavigation Requires jQuery")}}
     </script>
-    <?php
 
-include 'dbconfig.php';
-if(isset($_POST['Submit1']))
+<?php
+if(isset($_POST['submit']))
 {
-	$cid=$_POST['cid'];
-	$sql = "DELETE FROM clinic WHERE CID= $cid ";
+		$username=$_SESSION['username'];
+		$timestamp=$_POST['appointment'];
+		$updatequery="update book set Status='Cancelled by Patient' where username='$username' and timestamp= '$timestamp'";
+				if (mysqli_query($conn, $updatequery)) 
+				{
+							echo "Appointment Cancelled successfully..!!";
+							// header( "Refresh:2;url=u1login.php");
 
-	if (mysqli_query($conn, $sql))
-		{
-		echo "Record deleted successfully.";
-		
-		}
-	else
-		{
-			echo "Error deleting record: " . mysqli_error($conn);
-		}
+				} 
+				else
+				{
+					echo "Error: " . $updatequery . "<br>" . mysqli_error($conn);
+				}
 
 }
-if(isset($_POST['logout'])){
-		session_unset();
-		session_destroy();
-		
-	}
-?>			
+?>
+</body>
+</html>

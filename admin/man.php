@@ -12,8 +12,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>Admin</title>
 </head>
-<?php session_start(); ?>
- <style>
+<?php session_start();?>
+<style>
+
+<style>
 .contact-form{
     background: #fff;
     margin-top: 0%;
@@ -73,6 +75,7 @@ background-repeat: no-repeat;
 background-attachment: fixed;
 height: 800px;
 }
+
 .overlay,.sideMenu{position:fixed;bottom:0}
 .overlay{top:0;left:-100%;right:100%;margin:auto;background-color:rgba(0,0,0,.5);z-index:998;transition:all ease 0.2s}
 .overlay.open{left:0;right:0}
@@ -82,76 +85,51 @@ height: 800px;
 .sideMenu.open{left:0;display:block;overflow-y:auto}
 .sideMenu ul{margin:0;padding:0 15px}</style>
 <body>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sidebarNavigation" data-sidebarClass="navbar-dark bg-dark" >
         <div class="container-fluid">
-        <a class="navbar-brand" href="#">Admin</a>
+        <a class="nav-link" style="float:left;border-right:none;color:white"> <?php echo $_SESSION['mgrname']; ?>
+                   <span class="sr-only">(current)</span>
+               </a> 
         <button class="navbar-toggler leftNavbarToggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                 <li class="nav-item active">
-                <a class="nav-link" href="adminmain.php">Home
-                       
+               
+                    <a class="nav-link" href="adminmain.php">Logout
+                        <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Doctor</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="add_doc.php">Add Doctor</a>
-                        <a class="dropdown-item" href="del_doc.php">Delete Doctor</a>
-                        <a class="dropdown-item" href="s_doc.php">Show Doctor</a>
-                        <a class="dropdown-item" href="s_doc_shed.php">Show Doctor's Shedule</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Clinic</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="add_cli.php">Add Clinic</a>
-                        <a class="dropdown-item" href="del_cli.php">Delete CLinic</a>
-                        <a class="dropdown-item" href="add_doc_cli.php">Assign Doctor to Clinic</a>
-                        <a class="dropdown-item" href="add_man_cli.php">Assign Manager to Clinic</a>
-                        <a class="dropdown-item" href="del_doc_cli.php">Delete Doctor from Clinic</a>
-                        <a class="dropdown-item" href="del_man_cli.php">Delete Manager from Clinic</a>
-                        <a class="dropdown-item" href="s_cli.php">Show Clinic</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown" style="padding-right:40px">
-                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Manager</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="add_man.php">Add Manager</a>
-                    <a class="dropdown-item" href="del_man.php">Delete Manager</a>
-                    <a class="dropdown-item" href="s_man.php">Show Manager</a>
-                    </div>
-                </li>
+                
             </ul>
+            
+            <!-- <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
         </div>
     </div>
     </nav>
+
     <img src="admin.png" alt="" width="700px">
     <div style="float:right" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
     <div class="container contact-form"style="padding:0" >
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <h3>Delete Clinic</h3>
-               <div class="row" style="padding:0px">
-                    <div class="col-md-6"style="padding:0px" 
-                        <div class= "form-group">
-                            Enter Clinic ID: <br><input class="form-control" type="number" name="cid" required><br><br>
-                        <center>
+           <center>
                         <div class="form-group-">
-                            <input type="submit" name="Submit1" class="btnContact" />
+                        <form method="post">
+                        <br><br><br>
+                           <button class="btnContact"type="button" name="change" onclick="window.location.href='cbs.php'">Update/View Bookings</button>
                         </div>
-                    </div>
-                    </center>
-                </div>
-            </form>
+                        </center>
+                    </form>
 </div>
     </div>
     <script>
@@ -161,28 +139,5 @@ height: 800px;
             $("body").on("click",".sideMenu.open .nav-item",function(){if(!$(this).hasClass("dropdown")){$(".sideMenu, .overlay").toggleClass("open")}});$(window).resize(function(){if($(".navbar-toggler").is(":hidden")){$(".sideMenu, .overlay").hide()}
     else{$(".sideMenu, .overlay").show()}})})}else{console.log("sidebarNavigation Requires jQuery")}}
     </script>
-    <?php
-
-include 'dbconfig.php';
-if(isset($_POST['Submit1']))
-{
-	$cid=$_POST['cid'];
-	$sql = "DELETE FROM clinic WHERE CID= $cid ";
-
-	if (mysqli_query($conn, $sql))
-		{
-		echo "Record deleted successfully.";
-		
-		}
-	else
-		{
-			echo "Error deleting record: " . mysqli_error($conn);
-		}
-
-}
-if(isset($_POST['logout'])){
-		session_unset();
-		session_destroy();
-		
-	}
-?>			
+</body>
+</html>

@@ -10,7 +10,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="jquerypart.js" type="text/javascript"></script>
+<title>Admin</title>
 <script>
 function getState(val) {
 	$.ajax({
@@ -22,11 +22,11 @@ function getState(val) {
 	}
 	});
 }
-function getDoctorRegion(val) {
+function getDoctorday(val) {
 	$.ajax({
 	type: "POST",
-	url: "getdoctorregion.php",
-	data:'city='+val,
+	url: "getdoctorday.php",
+	data:'cid='+val,
 	success: function(data){
 		$("#doctor-list").html(data);
 	}
@@ -34,7 +34,6 @@ function getDoctorRegion(val) {
 }
 
 </script>
-<title>Admin</title>
 </head>
 <?php session_start(); ?>
  <style>
@@ -120,7 +119,7 @@ height: 800px;
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                 <li class="nav-item active">
                 <a class="nav-link" href="adminmain.php">Home
-                        <span class="sr-only">(current)</span>
+                       
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -163,14 +162,14 @@ height: 800px;
     <div style="float:right" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
     <div class="container contact-form"style="padding:0" >
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <h3>Assign Doctor To a Clinic</h3><br><br>
+                <h3>Delete Doctor From Clinic </h3>
                <div class="row" style="padding:0px">
                     <div class="col-md-6"style="padding:0px" 
                         <div class= "form-group">
                         <label style="font-size:20px" >City:</label>
-                       <select name="city" id="city-list" class="form-control"  onChange="getState(this.value);getDoctorRegion(this.value);">
+		<select name="city" id="city-list" class="form-control" onChange="getState(this.value);">
 		<option value="">Select City</option>
-        <?php
+		<?php
 		include 'dbconfig.php';
 		$sql1="SELECT distinct City FROM clinic";
          $results=$conn->query($sql1); 
@@ -178,49 +177,25 @@ height: 800px;
 		?>
 		<option value="<?php echo $rs["City"]; ?>"><?php echo $rs["City"]; ?></option>
 		<?php
-		
 		}
 		?>
 		</select>
-	
-		<label style="font-size:20px" >Clinic:</label>
-		<select id="clinic-list" name="clinic"  class="form-control"  >
+
+        <label style="font-size:20px" >Clinic:</label>
+		<select id="clinic-list" name="clinic" class="form-control" onchange="getDoctorday(this.value);" >
 		<option value="">Select Clinic</option>
 		</select>
 		
-		<label style="font-size:20px" >Doctor:</label>
-		<select name="doctor" id="doctor-list" class="form-control">
-		<option value="">Select Doctor</option>
-		</select>
-        <label style="font-size:20px" >
-		Available Days:</label><br>
-        <center>
-
-        <table>
-		<tr><td>Monday:</td><td><input type="checkbox" value="Monday" name="daylist[]"/></td></tr>
-		<tr><td>Tuesday:</td><td><input type="checkbox" value="Tuesday" name="daylist[]"/></td></tr>
-		<tr><td>Wednesday:</td><td><input type="checkbox" value="Wednesday" name="daylist[]"/></td></tr>
-		<tr><td>Thursday:</td><td><input type="checkbox" value="Thursday" name="daylist[]"/></td></tr>
-		<tr><td>Friday:</td><td><input type="checkbox" value="Friday" name="daylist[]"/></td></tr>
-		<tr><td>Saturday:</td><td><input type="checkbox" value="Saturday" name="daylist[]"/></td></tr>
-		</table>
-        </center>
-        <label style="font-size:20px" >
-		Available Time:</label><br>
-
-        From:<input type="time" name="starttime" class="form-control"><br>
-		To:<input type="time" name="endtime" class="form-control"> &nbsp &nbsp &nbsp
-        
-                       
-                       
-                       
-                      
-                       
-                        <div class="form-group">
+		<label style="font-size:20px" >Doctor & Time:</label>
+		<select name="doctor" id="doctor-list"  class="form-control">
+		<option value="">Select Day & Time</option>
+		</select><br><br>
+                        <center>
+                        <div class="form-group-">
                             <input type="submit" name="Submit" class="btnContact" />
                         </div>
                     </div>
-                    
+                    </center>
                 </div>
             </form>
 </div>
@@ -234,34 +209,31 @@ height: 800px;
     </script>
     <?php
 
+include 'dbconfig.php';
+if(isset($_POST['Submit']))
+{
+	$cid=$_POST['clinic'];
+	$rest=$_POST['doctor'];
+	$sql = "DELETE FROM doctor_availability WHERE CID= $cid AND DID= $rest";
+
+	if (mysqli_query($conn, $sql))
+		{
+		echo "Record deleted successfully.";
+		
+		}
+	else
+		{
+			echo "Error deleting record: " . mysqli_error($conn);
+		}
+
+}
+
 if(isset($_POST['logout'])){
 		session_unset();
 		session_destroy();
-		header( "Refresh:1; url=alogin.php"); 
-	}
-if(isset($_POST['Submit']))
-{
-		include 'dbconfig.php';
-		$cid=$_POST['clinic'];
-		$did=$_POST['doctor'];
-		$starttime=$_POST['starttime'];
-		$endtime=$_POST['endtime'];
 		
-		foreach($_POST['daylist'] as $daylist)
-		{
-				$sql = "INSERT INTO doctor_availability (CID, DID, Day, Starttime, Endtime) VALUES ('$cid','$did','$daylist','$starttime','$endtime')";
-				if (mysqli_query($conn, $sql)) 
-				{
-					echo "<h2>Record created successfully!!</h2>";
-				} 
-				else
-				{
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-				}
-		}
-}
-
-?>
+	}
+?>			
 
 </body>
 </html>
